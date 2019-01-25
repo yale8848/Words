@@ -15,7 +15,7 @@ public class CharUtilTest {
         String aa="sdadfα┇は안中国-@*,.ss";
         char[] charArray = aa.toCharArray();
         for (char c : charArray) {
-            boolean cnorEn = CharUtil.isEng(String.valueOf(c));
+            boolean cnorEn = CharUtil.isEnglish(String.valueOf(c));
             System.out.println(c+":"+cnorEn);
         }
     }
