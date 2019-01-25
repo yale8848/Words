@@ -17,7 +17,7 @@ public class SensitiveWordDFATest {
         sensitiveWord.init();
 
 
-        String test = "我你好fuck法轮功";
+        String test = "我你好fuck法轮功ddd肥嘟嘟操草你妈";
 
         //replace sensitive word
         try {

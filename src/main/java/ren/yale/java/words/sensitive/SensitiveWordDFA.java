@@ -59,11 +59,13 @@ public class SensitiveWordDFA implements SensitiveWord{
                 if (charNode == null){
                     charNode = new HashMap();
                     sm.put(ch,charNode);
+                    charNode.put(END_KEY,i == v.length()-1);
+                }else{
+                    if (!isEnd(charNode)){
+                        charNode.put(END_KEY,i == v.length()-1);
+                    }
                 }
                 sm = charNode;
-                if (!isEnd(sm)){
-                    sm.put(END_KEY,i == v.length()-1);
-                }
             }
         }
     }

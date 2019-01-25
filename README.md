@@ -14,7 +14,7 @@
 <dependency>
     <groupId>ren.yale.java</groupId>
     <artifactId>words</artifactId>
-    <version>0.0.5</version>
+    <version>0.0.6</version>
 </dependency>
 
 ```
@@ -61,9 +61,11 @@
 
 - 过滤无效词
 - 英文大小写
-- 混淆字符
+- 混淆字词
 
 
+### dict from
 
+https://github.com/observerss/textfilter
 
 
