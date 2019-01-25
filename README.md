@@ -2,6 +2,10 @@
 
 > Words is for sentence util kit.
 
+## function
+
+- Sensitive word filter
+
 ### use
 
 - maven
@@ -15,7 +19,7 @@
 
 ```
 
-` >= JDK 1.7 `
+` JDK >= 1.7 `
 
 - code
 
