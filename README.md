@@ -30,7 +30,7 @@
         sensitiveWord.init();
 
 
-        String test = "我fuck法轮功";
+        String test = "我你好fuck法轮功ddd肥嘟嘟操草你妈色魔s试试达赖达赖喇嘛";
 
         //replace sensitive word
         try {
@@ -56,6 +56,17 @@
         }
 
 ```
+
+```text
+output:
+
+我你好*******ddd肥嘟嘟******s试试******[fuck, 操草你妈, 达赖喇嘛, 法轮功, 色魔, 达赖]
+true
+[fuck, 操草你妈, 达赖喇嘛, 法轮功, 色魔, 达赖]
+
+
+```
+
 
 ### todo 
 
