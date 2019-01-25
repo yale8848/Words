@@ -6,7 +6,7 @@
 
     <groupId>ren.yale.java</groupId>
     <artifactId>words</artifactId>
-    <version>0.0.4</version>
+    <version>0.0.5</version>
     <packaging>jar</packaging>
 
 
@@ -52,8 +52,8 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.1</version>
                     <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
+                        <source>1.7</source>
+                        <target>1.7</target>
                         <encoding>UTF-8</encoding>
                         <skip>true</skip>
                     </configuration>

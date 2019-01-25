@@ -10,10 +10,12 @@
 <dependency>
     <groupId>ren.yale.java</groupId>
     <artifactId>words</artifactId>
-    <version>0.0.4</version>
+    <version>0.0.5</version>
 </dependency>
 
 ```
+
+` >= JDK 1.7 `
 
 - code
 

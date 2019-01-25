@@ -50,7 +50,7 @@ public class SensitiveWordDFA implements SensitiveWord{
     public void init(Set<String> sensitiveWordSet) {
         sensitiveWordMap = new HashMap(getInitCapacity(sensitiveWordSet),DEFAULT_LOAD_FACTOR);
 
-        sensitiveWordSet.forEach(v->{
+        for (String v:sensitiveWordSet) {
             Map charNode = null;
             Map sm = sensitiveWordMap;
             for(int i =0 ;i < v.length();i++){
@@ -65,15 +65,15 @@ public class SensitiveWordDFA implements SensitiveWord{
                     sm.put(END_KEY,i == v.length()-1);
                 }
             }
-        });
-
-
+        }
     }
 
 
     private int getInitCapacity(Set<String> sensitiveWordSet){
         Set<Character> setChar = new HashSet<>();
-        sensitiveWordSet.forEach(v->{setChar.add(v.charAt(0));});
+        for (String v:sensitiveWordSet) {
+            setChar.add(v.charAt(0));
+        }
         float ft = ((float)setChar.size() / DEFAULT_LOAD_FACTOR) + 1.0F;
         return (int)ft;
     }
@@ -139,13 +139,17 @@ public class SensitiveWordDFA implements SensitiveWord{
                 i = index;
             }
         }
-        Collections.sort(findWords,(o1, o2)->{return  o2.length()-o1.length();});
+        Collections.sort(findWords, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o2.length()-o1.length();
+            }
+        });
         return findWords;
     }
 
     @Override
     public List<String> getSensitiveWord(String txt) throws NotInitException{
-        checkInit();
         return getSensitiveWord(txt,SensitiveMatchType.MaxMath);
     }
 
@@ -173,7 +177,6 @@ public class SensitiveWordDFA implements SensitiveWord{
 
     @Override
     public SensitiveResult replaceSensitiveWord(String txt, char replaceStr)throws NotInitException {
-        checkInit();
         return replaceSensitiveWord(txt,replaceStr,SensitiveMatchType.MaxMath);
     }
 }
