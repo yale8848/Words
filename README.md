@@ -1,19 +1,26 @@
-package ren.yale.java.words.sensitive;
+## Words
 
-import ren.yale.java.words.excep.NotInitException;
+> Words is for sentence util kit.
 
-import static org.junit.Assert.*;
+### use
 
-/**
- * Created by yale on 2019/1/25.
- */
-public class SensitiveWordDFATest {
+- maven
 
-    @org.junit.Test
-    public void init() {
+```xml
+<dependency>
+    <groupId>ren.yale.java</groupId>
+    <artifactId>words</artifactId>
+    <version>0.0.3</version>
+</dependency>
+
+```
+
+- code
+
+```java
 
         SensitiveWord sensitiveWord = new SensitiveWordDFA();
-        sensitiveWord.init();
+        sensitiveWord.init();//default dict
         String test = "我fuck法轮功";
         SensitiveResult rep  = null;
         try {
@@ -22,5 +29,16 @@ public class SensitiveWordDFATest {
         } catch (NotInitException e) {
             e.printStackTrace();
         }
-    }
-}
+
+```
+
+### todo 
+
+- 过滤无效词
+- 英文大小写
+- 混淆字符
+
+
+
+
+

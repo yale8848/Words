@@ -1,5 +1,7 @@
 package ren.yale.java.words.sensitive;
 
+import ren.yale.java.words.excep.NotInitException;
+
 import java.io.*;
 import java.util.*;
 
@@ -27,10 +29,7 @@ public class SensitiveWordDFA implements SensitiveWord{
                 }
             }
             br.close();
-
             init(words);
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,6 +38,12 @@ public class SensitiveWordDFA implements SensitiveWord{
     @Override
     public void init() {
         init(this.getClass().getResourceAsStream("/"+DICT));
+    }
+
+    private void checkInit() throws NotInitException{
+        if (sensitiveWordMap == null){
+            throw new NotInitException("not init SensitiveWord");
+        }
     }
 
     @Override
@@ -74,7 +79,9 @@ public class SensitiveWordDFA implements SensitiveWord{
     }
 
     @Override
-    public boolean contains(String txt, SensitiveMatchType matchType) {
+    public boolean contains(String txt, SensitiveMatchType matchType)throws NotInitException {
+
+        checkInit();
 
         for (int i = 0 ;i < txt.length();i++ ){
            int index = check(txt,i,matchType);
@@ -85,6 +92,11 @@ public class SensitiveWordDFA implements SensitiveWord{
         return false;
     }
 
+    @Override
+    public boolean contains(String txt) throws NotInitException {
+        return contains(txt,SensitiveMatchType.MaxMath);
+    }
+
     private boolean isEnd(Map mp){
         Object find =  mp.get(END_KEY);
         if (find == null){
@@ -93,7 +105,7 @@ public class SensitiveWordDFA implements SensitiveWord{
         return (boolean) find;
     }
 
-    private int check(String txt, int startIndex, SensitiveMatchType matchType){
+    private int check(String txt, int startIndex, SensitiveMatchType matchType)throws NotInitException{
 
         Map tmp = sensitiveWordMap;
         int index = -1;
@@ -113,7 +125,9 @@ public class SensitiveWordDFA implements SensitiveWord{
     }
 
     @Override
-    public List<String> getSensitiveWord(String txt, SensitiveMatchType matchType) {
+    public List<String> getSensitiveWord(String txt, SensitiveMatchType matchType) throws NotInitException{
+
+        checkInit();
 
         List<String> findWords = new ArrayList<>();
         for (int i = 0 ;i < txt.length();i++ ){
@@ -129,6 +143,12 @@ public class SensitiveWordDFA implements SensitiveWord{
         return findWords;
     }
 
+    @Override
+    public List<String> getSensitiveWord(String txt) throws NotInitException{
+        checkInit();
+        return getSensitiveWord(txt,SensitiveMatchType.MaxMath);
+    }
+
     private String getRepeatChars(char replaceStr , int length){
         StringBuilder sb = new StringBuilder();
         for (int i =0 ;i < length;i++){
@@ -137,17 +157,23 @@ public class SensitiveWordDFA implements SensitiveWord{
         return sb.toString();
     }
 
-    @Override
-    public String replaceSensitiveWord(String txt, char replaceStr, SensitiveMatchType matchType) {
+
+    public SensitiveResult replaceSensitiveWord(String txt, char replaceStr, SensitiveMatchType matchType) throws NotInitException{
+        checkInit();
         List<String> findWords = getSensitiveWord(txt,matchType);
         for (String v:findWords) {
             txt = txt.replaceAll(v,getRepeatChars(replaceStr,v.length()));
         }
-        return txt;
+        SensitiveResult sensitiveResult = new SensitiveResult();
+        sensitiveResult.setHaveSensitiveWord(findWords.size()>0);
+        sensitiveResult.setSensitiveWords(findWords);
+        sensitiveResult.setAntiSensitive(txt);
+        return sensitiveResult;
     }
 
     @Override
-    public String replaceSensitiveWord(String txt, char replaceStr) {
+    public SensitiveResult replaceSensitiveWord(String txt, char replaceStr)throws NotInitException {
+        checkInit();
         return replaceSensitiveWord(txt,replaceStr,SensitiveMatchType.MaxMath);
     }
 }

@@ -1,5 +1,7 @@
 package ren.yale.java.words.sensitive;
 
+import ren.yale.java.words.excep.NotInitException;
+
 import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
@@ -11,9 +13,14 @@ public interface SensitiveWord {
     void init(InputStream inputStream);
     void init();
     void init(Set<String> sensitiveWordSet);
-    boolean contains(String txt, SensitiveMatchType matchType);
-    List<String> getSensitiveWord(String txt, SensitiveMatchType matchType);
-    String replaceSensitiveWord(String txt, char replaceStr, SensitiveMatchType matchType);
-    String replaceSensitiveWord(String txt, char replaceStr);
+
+    boolean contains(String txt, SensitiveMatchType matchType) throws NotInitException;
+    boolean contains(String txt) throws NotInitException;
+
+    List<String> getSensitiveWord(String txt, SensitiveMatchType matchType) throws NotInitException ;
+    List<String> getSensitiveWord(String txt) throws NotInitException;
+
+    SensitiveResult replaceSensitiveWord(String txt, char replaceStr, SensitiveMatchType matchType) throws NotInitException;
+    SensitiveResult replaceSensitiveWord(String txt, char replaceStr) throws NotInitException;
 
 }
